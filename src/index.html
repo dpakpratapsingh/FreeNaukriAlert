@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarkari Result Alert - Latest Government Jobs, Results & Admit Cards</title>
+  <meta name="description" content="Sarkari Result Alert – Get the latest government jobs, exam results, admit cards, answer keys and syllabus for all Indian government exams." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="site-title">&#127381; Sarkari Result Alert</div>
+      <div class="site-tagline">Latest Sarkari Naukri | Results | Admit Card | Answer Key | Syllabus</div>
+    </div>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="pages/listing.html?category=latest_jobs">Latest Jobs</a></li>
+        <li><a href="pages/listing.html?category=latest_results">Latest Results</a></li>
+        <li><a href="pages/listing.html?category=admit_card">Admit Card</a></li>
+        <li><a href="pages/listing.html?category=answer_key">Answer Key</a></li>
+        <li><a href="pages/listing.html?category=syllabus">Syllabus</a></li>
+        <li><a href="pages/listing.html?category=admission">Admission</a></li>
+        <li><a href="admin/index.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <form id="search-form" action="pages/listing.html" method="get">
+      <input type="text" id="search-input" name="q" placeholder="Search for jobs, results, admit cards..." />
+      <button type="submit">&#128269; Search</button>
+    </form>
+  </div>
+
+  <!-- Breaking News Ticker -->
+  <div class="ticker">
+    <span class="ticker-label">&#128276; LATEST</span>
+    <div class="ticker-text" id="ticker-content">
+      Loading latest updates...
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="container">
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Latest Jobs -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#128188; Latest Government Jobs</h2>
+          <a href="pages/listing.html?category=latest_jobs" class="view-all-link" id="latest-jobs-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Post / Organization</th>
+              <th>Organization</th>
+              <th>Last Date</th>
+            </tr>
+          </thead>
+          <tbody id="latest-jobs-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Latest Results -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#127942; Latest Results</h2>
+          <a href="pages/listing.html?category=latest_results" class="view-all-link" id="latest-results-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Exam / Result Name</th>
+              <th>Organization</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="latest-results-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Admit Cards -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#128210; Admit Card / Hall Ticket</h2>
+          <a href="pages/listing.html?category=admit_card" class="view-all-link" id="admit-card-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Exam Name</th>
+              <th>Organization</th>
+              <th>Exam Date</th>
+            </tr>
+          </thead>
+          <tbody id="admit-card-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Answer Keys -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#128196; Answer Key</h2>
+          <a href="pages/listing.html?category=answer_key" class="view-all-link" id="answer-key-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Exam Name</th>
+              <th>Organization</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="answer-key-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Syllabus -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#128218; Syllabus / Exam Pattern</h2>
+          <a href="pages/listing.html?category=syllabus" class="view-all-link" id="syllabus-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Exam / Post Name</th>
+              <th>Organization</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="syllabus-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Admission -->
+      <div class="section-box">
+        <div class="section-header">
+          <h2>&#127979; Admission</h2>
+          <a href="pages/listing.html?category=admission" class="view-all-link" id="admission-body-viewall">View All &raquo;</a>
+        </div>
+        <table class="post-table">
+          <thead>
+            <tr>
+              <th>Institution / Course</th>
+              <th>Organization</th>
+              <th>Last Date</th>
+            </tr>
+          </thead>
+          <tbody id="admission-body">
+            <tr><td colspan="3" class="no-data">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <!-- Quick Links -->
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#128279; Quick Links</div>
+        <ul class="important-links-list">
+          <li><a href="pages/listing.html?category=latest_jobs">&#128188; Latest Jobs</a></li>
+          <li><a href="pages/listing.html?category=latest_results">&#127942; Latest Results</a></li>
+          <li><a href="pages/listing.html?category=admit_card">&#128210; Admit Card</a></li>
+          <li><a href="pages/listing.html?category=answer_key">&#128196; Answer Key</a></li>
+          <li><a href="pages/listing.html?category=syllabus">&#128218; Syllabus</a></li>
+          <li><a href="pages/listing.html?category=admission">&#127979; Admission</a></li>
+        </ul>
+      </div>
+
+      <!-- Latest Jobs Sidebar -->
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#128188; Latest Jobs</div>
+        <ul class="sidebar-list" id="sidebar-jobs">
+          <li><a href="#">Loading...</a></li>
+        </ul>
+      </div>
+
+      <!-- Latest Results Sidebar -->
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#127942; Latest Results</div>
+        <ul class="sidebar-list" id="sidebar-results">
+          <li><a href="#">Loading...</a></li>
+        </ul>
+      </div>
+
+      <!-- Admit Card Sidebar -->
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#128210; Admit Cards</div>
+        <ul class="sidebar-list" id="sidebar-admitcards">
+          <li><a href="#">Loading...</a></li>
+        </ul>
+      </div>
+
+      <!-- About Box -->
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#8505; About Us</div>
+        <div style="padding:10px 12px; font-size:13px; line-height:1.6; color:#555;">
+          Sarkari Result Alert provides the latest information on government jobs, exam results, admit cards, and syllabus for all major Indian government exams including SSC, UPSC, Railways, Banking, State PSC, and more.
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Important Links</h3>
+        <ul>
+          <li><a href="pages/listing.html?category=latest_jobs">Latest Jobs</a></li>
+          <li><a href="pages/listing.html?category=latest_results">Latest Results</a></li>
+          <li><a href="pages/listing.html?category=admit_card">Admit Card</a></li>
+          <li><a href="pages/listing.html?category=answer_key">Answer Key</a></li>
+          <li><a href="pages/listing.html?category=syllabus">Syllabus</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Government Portals</h3>
+        <ul>
+          <li><a href="https://ssc.nic.in" target="_blank" rel="noopener noreferrer">SSC Official</a></li>
+          <li><a href="https://upsc.gov.in" target="_blank" rel="noopener noreferrer">UPSC Official</a></li>
+          <li><a href="https://indianrailways.gov.in" target="_blank" rel="noopener noreferrer">Indian Railways</a></li>
+          <li><a href="https://ibps.in" target="_blank" rel="noopener noreferrer">IBPS Official</a></li>
+          <li><a href="https://nra.nic.in" target="_blank" rel="noopener noreferrer">NRA (CET)</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Disclaimer</a></li>
+          <li><a href="admin/index.html">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Sarkari Result Alert. All Rights Reserved. | Powered by <strong>Appwrite</strong></p>
+      <p style="margin-top:4px;font-size:11px;">Disclaimer: This website is not affiliated with any government organization. Information provided is for educational purposes only.</p>
+    </div>
+  </footer>
+
+  <!-- Appwrite Web SDK (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@16/dist/iife/sdk.min.js"></script>
+  <script src="js/appwrite.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Load sidebar data
+    async function loadSidebar() {
+      const [jobsRes, resultsRes, admitRes] = await Promise.all([
+        getPostsByCategory(CATEGORIES.LATEST_JOBS, 6),
+        getPostsByCategory(CATEGORIES.LATEST_RESULTS, 6),
+        getPostsByCategory(CATEGORIES.ADMIT_CARD, 6),
+      ]);
+
+      function renderSidebarList(containerId, docs) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        if (!docs || docs.length === 0) {
+          el.innerHTML = '<li><a href="#">No data available</a></li>';
+          return;
+        }
+        el.innerHTML = docs.map(d => `
+          <li><a href="pages/post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)} ${d.is_new ? '<span class="badge-new">NEW</span>' : ''}</a></li>
+        `).join('');
+      }
+
+      renderSidebarList('sidebar-jobs', jobsRes.documents);
+      renderSidebarList('sidebar-results', resultsRes.documents);
+      renderSidebarList('sidebar-admitcards', admitRes.documents);
+
+      // Ticker
+      const allDocs = [
+        ...(jobsRes.documents || []),
+        ...(resultsRes.documents || []),
+        ...(admitRes.documents || []),
+      ];
+      const ticker = document.getElementById('ticker-content');
+      if (ticker && allDocs.length > 0) {
+        ticker.innerHTML = allDocs.map(d =>
+          `<a href="pages/post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)}</a>`
+        ).join(' &bull; ');
+      } else if (ticker) {
+        ticker.textContent = 'No updates available. Add posts from the admin panel.';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSidebar);
+  </script>
+</body>
+</html>

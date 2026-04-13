@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Listing - Sarkari Result Alert</title>
+  <meta name="description" content="Browse all latest government jobs, results, admit cards and more on Sarkari Result Alert." />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="listing">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="site-title"><a href="../index.html" style="color:#fff;text-decoration:none;">&#127381; Sarkari Result Alert</a></div>
+      <div class="site-tagline">Latest Sarkari Naukri | Results | Admit Card | Answer Key | Syllabus</div>
+    </div>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="listing.html?category=latest_jobs">Latest Jobs</a></li>
+        <li><a href="listing.html?category=latest_results">Latest Results</a></li>
+        <li><a href="listing.html?category=admit_card">Admit Card</a></li>
+        <li><a href="listing.html?category=answer_key">Answer Key</a></li>
+        <li><a href="listing.html?category=syllabus">Syllabus</a></li>
+        <li><a href="listing.html?category=admission">Admission</a></li>
+        <li><a href="../admin/index.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <form id="search-form">
+      <input type="text" id="search-input" placeholder="Search for jobs, results, admit cards..." />
+      <button type="submit">&#128269; Search</button>
+    </form>
+  </div>
+
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Home</a>
+    <span>&rsaquo;</span>
+    <span id="listing-heading">Loading...</span>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="listing-page">
+    <main class="listing-main">
+      <!-- Page Heading -->
+      <div class="page-heading">
+        <h1 id="listing-heading-main">Loading...</h1>
+      </div>
+
+      <!-- Listing Container -->
+      <div id="listing-container">
+        <div class="no-data">Loading posts...</div>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination"></div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#128279; Quick Links</div>
+        <ul class="important-links-list">
+          <li><a href="listing.html?category=latest_jobs">&#128188; Latest Jobs</a></li>
+          <li><a href="listing.html?category=latest_results">&#127942; Latest Results</a></li>
+          <li><a href="listing.html?category=admit_card">&#128210; Admit Card</a></li>
+          <li><a href="listing.html?category=answer_key">&#128196; Answer Key</a></li>
+          <li><a href="listing.html?category=syllabus">&#128218; Syllabus</a></li>
+          <li><a href="listing.html?category=admission">&#127979; Admission</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#128188; Latest Jobs</div>
+        <ul class="sidebar-list" id="sidebar-jobs">
+          <li><a href="#">Loading...</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">&#127942; Latest Results</div>
+        <ul class="sidebar-list" id="sidebar-results">
+          <li><a href="#">Loading...</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Important Links</h3>
+        <ul>
+          <li><a href="listing.html?category=latest_jobs">Latest Jobs</a></li>
+          <li><a href="listing.html?category=latest_results">Latest Results</a></li>
+          <li><a href="listing.html?category=admit_card">Admit Card</a></li>
+          <li><a href="listing.html?category=answer_key">Answer Key</a></li>
+          <li><a href="listing.html?category=syllabus">Syllabus</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Government Portals</h3>
+        <ul>
+          <li><a href="https://ssc.nic.in" target="_blank" rel="noopener noreferrer">SSC Official</a></li>
+          <li><a href="https://upsc.gov.in" target="_blank" rel="noopener noreferrer">UPSC Official</a></li>
+          <li><a href="https://indianrailways.gov.in" target="_blank" rel="noopener noreferrer">Indian Railways</a></li>
+          <li><a href="https://ibps.in" target="_blank" rel="noopener noreferrer">IBPS Official</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="../admin/index.html">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Sarkari Result Alert. All Rights Reserved. | Powered by <strong>Appwrite</strong></p>
+    </div>
+  </footer>
+
+  <!-- Appwrite Web SDK (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@16/dist/iife/sdk.min.js"></script>
+  <script src="../js/appwrite.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Load sidebar data (heading is managed by main.js loadListingPage)
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Sidebar
+      const [jobsRes, resultsRes] = await Promise.all([
+        getPostsByCategory(CATEGORIES.LATEST_JOBS, 6),
+        getPostsByCategory(CATEGORIES.LATEST_RESULTS, 6),
+      ]);
+      function renderSidebarList(containerId, docs) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        if (!docs || docs.length === 0) {
+          el.innerHTML = '<li><a href="#">No data available</a></li>';
+          return;
+        }
+        el.innerHTML = docs.map(d => `
+          <li><a href="post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)}</a></li>
+        `).join('');
+      }
+      renderSidebarList('sidebar-jobs', jobsRes.documents);
+      renderSidebarList('sidebar-results', resultsRes.documents);
+    });
+  </script>
+</body>
+</html>
