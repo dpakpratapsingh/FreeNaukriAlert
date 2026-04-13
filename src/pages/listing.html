@@ -148,7 +148,7 @@
           return;
         }
         el.innerHTML = docs.map(d => `
-          <li><a href="post.html?id=${d.$id}">${d.title}</a></li>
+          <li><a href="post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)}</a></li>
         `).join('');
       }
       renderSidebarList('sidebar-jobs', jobsRes.documents);

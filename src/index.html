@@ -284,7 +284,7 @@
           return;
         }
         el.innerHTML = docs.map(d => `
-          <li><a href="pages/post.html?id=${d.$id}">${d.title} ${d.is_new ? '<span class="badge-new">NEW</span>' : ''}</a></li>
+          <li><a href="pages/post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)} ${d.is_new ? '<span class="badge-new">NEW</span>' : ''}</a></li>
         `).join('');
       }
 
@@ -301,7 +301,7 @@
       const ticker = document.getElementById('ticker-content');
       if (ticker && allDocs.length > 0) {
         ticker.innerHTML = allDocs.map(d =>
-          `<a href="pages/post.html?id=${d.$id}">${d.title}</a>`
+          `<a href="pages/post.html?id=${encodeURIComponent(d.$id)}">${escapeHtml(d.title)}</a>`
         ).join(' &bull; ');
       } else if (ticker) {
         ticker.textContent = 'No updates available. Add posts from the admin panel.';

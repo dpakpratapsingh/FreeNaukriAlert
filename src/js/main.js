@@ -88,7 +88,7 @@ function renderListingPage(containerId, posts, total, page, limit, category) {
         ${post.last_date ? `<span><strong>Last Date:</strong> ${escapeHtml(post.last_date)}</span>` : ""}
       </div>
       ${post.short_info ? `<p class="short-info">${escapeHtml(post.short_info)}</p>` : ""}
-      <a href="post.html?id=${post.$id}" class="btn-detail">View Details &raquo;</a>
+      <a href="post.html?id=${encodeURIComponent(post.$id)}" class="btn-detail">View Details &raquo;</a>
     </div>
   `
     )
@@ -241,7 +241,7 @@ function renderPostDetail(post) {
             ${Object.entries(importantLinks)
               .map(
                 ([k, v]) =>
-                  `<tr><td>${escapeHtml(k)}</td><td><a href="${escapeHtml(sanitizeUrl(v))}" target="_blank" rel="noopener noreferrer" class="detail-link">${escapeHtml(k)}</a></td></tr>`
+                  `<tr><td>${escapeHtml(k)}</td><td><a href="${sanitizeUrl(v)}" target="_blank" rel="noopener noreferrer" class="detail-link">${escapeHtml(k)}</a></td></tr>`
               )
               .join("")}
           </tbody>

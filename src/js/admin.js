@@ -62,6 +62,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (cancelBtn) {
     cancelBtn.addEventListener("click", resetPostForm);
   }
+
+  // Category filter dropdown
+  const filterCategory = document.getElementById("filter-category");
+  if (filterCategory) {
+    filterCategory.addEventListener("change", filterAdminByCategory);
+  }
 });
 
 // Load posts in admin table
@@ -90,18 +96,26 @@ async function loadAdminPosts(category = "") {
       .map(
         (post) => `
       <tr>
-        <td>${post.title}</td>
-        <td>${getCategoryLabel(post.category)}</td>
-        <td>${post.organization}</td>
-        <td>${post.last_date || post.post_date || "N/A"}</td>
+        <td>${escapeHtml(post.title)}</td>
+        <td>${escapeHtml(getCategoryLabel(post.category))}</td>
+        <td>${escapeHtml(post.organization)}</td>
+        <td>${escapeHtml(post.last_date || post.post_date || "N/A")}</td>
         <td>
-          <button class="btn-edit" onclick="editPost('${post.$id}')">Edit</button>
-          <button class="btn-delete" onclick="confirmDeletePost('${post.$id}')">Delete</button>
+          <button class="btn-edit" data-id="${escapeHtml(post.$id)}">Edit</button>
+          <button class="btn-delete" data-id="${escapeHtml(post.$id)}">Delete</button>
         </td>
       </tr>
     `
       )
       .join("");
+
+    // Attach click handlers using event delegation (avoids inline onclick)
+    tbody.querySelectorAll(".btn-edit").forEach((btn) => {
+      btn.addEventListener("click", () => editPost(btn.dataset.id));
+    });
+    tbody.querySelectorAll(".btn-delete").forEach((btn) => {
+      btn.addEventListener("click", () => confirmDeletePost(btn.dataset.id));
+    });
   } catch (err) {
     const errorRow = document.createElement("tr");
     const errorCell = document.createElement("td");
