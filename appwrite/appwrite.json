@@ -1,0 +1,127 @@
+{
+  "projectId": "YOUR_PROJECT_ID",
+  "projectName": "SarkariResultAlert",
+  "databases": [
+    {
+      "$id": "sarkari_db",
+      "name": "SarkariResultDB",
+      "collections": [
+        {
+          "$id": "posts",
+          "name": "Posts",
+          "documentSecurity": false,
+          "attributes": [
+            {
+              "key": "title",
+              "type": "string",
+              "size": 500,
+              "required": true
+            },
+            {
+              "key": "category",
+              "type": "string",
+              "size": 50,
+              "required": true,
+              "elements": [
+                "latest_jobs",
+                "latest_results",
+                "admit_card",
+                "answer_key",
+                "syllabus",
+                "certificate_verification",
+                "admission"
+              ]
+            },
+            {
+              "key": "organization",
+              "type": "string",
+              "size": 300,
+              "required": true
+            },
+            {
+              "key": "short_info",
+              "type": "string",
+              "size": 1000,
+              "required": false
+            },
+            {
+              "key": "important_dates",
+              "type": "string",
+              "size": 5000,
+              "required": false
+            },
+            {
+              "key": "application_fee",
+              "type": "string",
+              "size": 2000,
+              "required": false
+            },
+            {
+              "key": "age_limit",
+              "type": "string",
+              "size": 1000,
+              "required": false
+            },
+            {
+              "key": "vacancy_details",
+              "type": "string",
+              "size": 5000,
+              "required": false
+            },
+            {
+              "key": "important_links",
+              "type": "string",
+              "size": 5000,
+              "required": false
+            },
+            {
+              "key": "post_date",
+              "type": "string",
+              "size": 20,
+              "required": false
+            },
+            {
+              "key": "last_date",
+              "type": "string",
+              "size": 20,
+              "required": false
+            },
+            {
+              "key": "is_new",
+              "type": "boolean",
+              "required": false,
+              "default": false
+            },
+            {
+              "key": "status",
+              "type": "string",
+              "size": 20,
+              "required": false,
+              "default": "active"
+            }
+          ],
+          "indexes": [
+            {
+              "key": "category_index",
+              "type": "key",
+              "attributes": ["category"],
+              "orders": ["ASC"]
+            },
+            {
+              "key": "status_index",
+              "type": "key",
+              "attributes": ["status"],
+              "orders": ["ASC"]
+            }
+          ],
+          "permissions": {
+            "read": ["any"],
+            "create": ["users"],
+            "update": ["users"],
+            "delete": ["users"]
+          }
+        }
+      ]
+    }
+  ]
+}
