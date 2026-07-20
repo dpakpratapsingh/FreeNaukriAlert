@@ -69,7 +69,7 @@ export default function Dashboard() {
           <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '24px' }}>
             Prove your Examiner Thought Process to increase your Activity Percentage.
           </p>
-          <button className="btn btn-primary" style={{ width: '100%' }}>Start Assessment</button>
+          <a href={`/assessment?email=${email}`} className="btn btn-primary" style={{ width: '100%', textDecoration: 'none' }}>Start Assessment</a>
         </div>
       </div>
 

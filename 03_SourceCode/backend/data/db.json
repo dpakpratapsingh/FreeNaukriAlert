@@ -1,1 +1,16 @@
-{ " students\: [], \assessments\: [] }
+{
+  "students": [
+    {
+      "id": "1784577950503",
+      "name": "deepak",
+      "email": "dps@deepakpratapsingh.com",
+      "education": "Post-Graduate",
+      "targetJob": "UPSC",
+      "choices": [],
+      "activityScore": 0,
+      "role": "Student",
+      "createdAt": "2026-07-20T20:05:50.503Z"
+    }
+  ],
+  "assessments": []
+}
