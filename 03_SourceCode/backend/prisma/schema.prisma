@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id            String       @id @default(uuid())
+  name          String
+  email         String       @unique
+  education     String
+  targetJob     String
+  activityScore Int          @default(0)
+  role          String       @default("Student")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  assessments   Assessment[]
+}
+
+model Assessment {
+  id           String   @id @default(uuid())
+  score        Int
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
+  createdAt    DateTime @default(now())
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  type          String   // 'Syllabus' or 'Examiner Thought Process'
+  text          String
+  options       Json     // Array of strings
+  correctOption String
+  createdAt     DateTime @default(now())
+}
