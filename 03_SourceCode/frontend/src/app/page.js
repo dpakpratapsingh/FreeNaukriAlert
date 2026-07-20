@@ -15,7 +15,7 @@ export default function Home() {
             Information must reach you. A unified notification alert system that strictly judges eligibility, not personality or emotion. 
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <button className="btn btn-primary">Begin 100-Question Check</button>
+            <a href="/register" className="btn btn-primary" style={{ textDecoration: 'none' }}>Begin 100-Question Check</a>
             <button className="btn" style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
               Explore Past Papers
             </button>

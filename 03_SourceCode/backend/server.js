@@ -21,6 +21,13 @@ app.get('/health', (req, res) => {
   });
 });
 
+const authRoutes = require('./routes/auth');
+const assessmentRoutes = require('./routes/assessment');
+
+// Mount Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/assessment', assessmentRoutes);
+
 app.listen(PORT, () => {
   console.log(`🚀 [FreeNaukriAlert] Backend Engine listening on port ${PORT}`);
 });
