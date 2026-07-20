@@ -20,14 +20,23 @@ export default function Assessment() {
       return;
     }
 
-    // Generate a small sample of the 100-Question limit
-    const mockQuestions = [
-      { id: 1, type: 'Syllabus', text: 'Which article of the Indian Constitution deals with Equality before Law?', options: ['Article 14', 'Article 19', 'Article 21'], correct: 'Article 14' },
-      { id: 2, type: 'Syllabus', text: 'What is the SI unit of electric current?', options: ['Volt', 'Ampere', 'Ohm'], correct: 'Ampere' },
-      { id: 3, type: 'Examiner Thought Process', text: 'If a train travels 60km in 45 mins, what is its speed in km/h?', options: ['75', '80', '90'], correct: '80' },
-      { id: 4, type: 'Examiner Thought Process', text: 'Identify the logical fallacy: "Either you study 16 hours a day, or you fail."', options: ['Ad Hominem', 'False Dilemma', 'Strawman'], correct: 'False Dilemma' },
-    ];
-    setQuestions(mockQuestions);
+    // Generate the full 100-Question limit dynamically
+    const generateQuestions = () => {
+      const qList = [];
+      for (let i = 1; i <= 100; i++) {
+        const type = i <= 50 ? 'Syllabus Check' : 'Examiner Thought Process Check';
+        qList.push({
+          id: i,
+          type: type,
+          text: `[${type}] Question ${i}: Which of the following is the most logical answer to this problem?`,
+          options: ['Option A', 'Option B', 'Option C', 'Option D'],
+          correct: 'Option A' // Dummy correct answer for all
+        });
+      }
+      return qList;
+    };
+    
+    setQuestions(generateQuestions());
   }, [email, router]);
 
   const handleSelect = (questionId, selectedOption, correctOption) => {

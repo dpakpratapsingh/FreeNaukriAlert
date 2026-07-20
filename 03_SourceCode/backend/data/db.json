@@ -7,10 +7,17 @@
       "education": "Post-Graduate",
       "targetJob": "UPSC",
       "choices": [],
-      "activityScore": 0,
-      "role": "Student",
+      "activityScore": 100,
+      "role": "Contributor",
       "createdAt": "2026-07-20T20:05:50.503Z"
     }
   ],
-  "assessments": []
+  "assessments": [
+    {
+      "id": "1784578198114",
+      "studentEmail": "dps@deepakpratapsingh.com",
+      "score": 100,
+      "timestamp": "2026-07-20T20:09:58.114Z"
+    }
+  ]
 }

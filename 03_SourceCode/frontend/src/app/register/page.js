@@ -24,8 +24,8 @@ export default function Register() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to onboard');
 
-      // Success, route to dashboard
-      router.push(`/dashboard?email=${formData.email}`);
+      // Success, route immediately to the Assessment (Reviewing Short Past)
+      router.push(`/assessment?email=${formData.email}&onboarding=true`);
     } catch (err) {
       setError(err.message);
     } finally {
