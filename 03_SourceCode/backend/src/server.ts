@@ -16,6 +16,8 @@ app.use(express.json());
 
 import adminRoutes from './routes/admin';
 import papersRoutes from './routes/papers';
+import jobsRoutes from './routes/jobs';
+import notificationsRoutes from './routes/notifications';
 
 // ... (middlewares)
 
@@ -24,6 +26,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/assessment', assessmentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/papers', papersRoutes);
+app.use('/api/jobs', jobsRoutes);
+app.use('/api/notifications', notificationsRoutes);
 
 // Health Check
 app.get('/', (req, res) => {

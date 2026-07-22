@@ -16,8 +16,9 @@ model Student {
   activityScore Int          @default(0)
   role          String       @default("Student")
   createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  updatedAt     DateTime       @updatedAt
   assessments   Assessment[]
+  notifications Notification[]
 }
 
 model Assessment {
@@ -46,4 +47,26 @@ model PastPaper {
   documentUrl  String   // Mock URL or real file link
   uploadedBy   String   // Name or ID of Contributor
   createdAt    DateTime @default(now())
+}
+
+model JobAlert {
+  id                String         @id @default(uuid())
+  title             String
+  department        String
+  requiredEducation String
+  deadline          DateTime
+  applyUrl          String
+  createdAt         DateTime       @default(now())
+  notifications     Notification[]
+}
+
+model Notification {
+  id           String    @id @default(uuid())
+  studentId    String
+  jobAlertId   String
+  isRead       Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  
+  student      Student   @relation(fields: [studentId], references: [id])
+  jobAlert     JobAlert  @relation(fields: [jobAlertId], references: [id])
 }

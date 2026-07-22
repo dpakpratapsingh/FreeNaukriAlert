@@ -1,125 +1,98 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function AdminDashboard() {
-  const router = useRouter();
+  const [activeTab, setActiveTab] = useState('paper');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [formData, setFormData] = useState({
-    examName: '',
-    year: '',
-    shift: '',
-    paperType: 'Previous',
-    documentUrl: '',
-    uploadedBy: 'Admin (System)'
+  
+  // Paper Form
+  const [paperForm, setPaperForm] = useState({
+    examName: '', year: '', shift: '', paperType: 'Previous', documentUrl: '', uploadedBy: 'Admin (System)'
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
+  // Job Form
+  const [jobForm, setJobForm] = useState({
+    title: '', department: '', requiredEducation: '', deadline: '', applyUrl: ''
+  });
 
+  const handlePaperSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true); setMessage('');
     try {
       const res = await fetch('http://localhost:5033/api/admin/upload-paper', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(paperForm)
       });
-      
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to upload paper');
+      if (!res.ok) throw new Error(data.error);
+      setMessage('Past Paper Successfully Uploaded!');
+      setPaperForm({ ...paperForm, examName: '', year: '', shift: '', documentUrl: '' });
+    } catch (err: any) { setMessage(`Error: ${err.message}`); } finally { setLoading(false); }
+  };
 
-      setMessage('Past Paper Successfully Uploaded to the Engine!');
-      setFormData({ ...formData, examName: '', year: '', shift: '', documentUrl: '' });
-    } catch (err: any) {
-      setMessage(`Error: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
+  const handleJobSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true); setMessage('');
+    try {
+      const res = await fetch('http://localhost:5033/api/jobs/post', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(jobForm)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setMessage(`Job Posted! Automatically matched and notified ${data.notificationsSent} students.`);
+      setJobForm({ title: '', department: '', requiredEducation: '', deadline: '', applyUrl: '' });
+    } catch (err: any) { setMessage(`Error: ${err.message}`); } finally { setLoading(false); }
   };
 
   return (
     <div className="container" style={{ padding: '64px 24px', maxWidth: '600px' }}>
       <div className="card">
         <h2 style={{ textAlign: 'center', marginBottom: '8px' }}>Contributor / Admin Panel</h2>
-        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '32px' }}>
-          Upload Previous & Predicted Papers to the Central Engine.
-        </p>
-        
-        {message && (
-          <div style={{ padding: '16px', marginBottom: '24px', borderRadius: '8px', background: message.startsWith('Error') ? '#ffdddd' : '#ddffdd', color: '#333', textAlign: 'center', fontWeight: 600 }}>
-            {message}
-          </div>
-        )}
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '24px' }}>Manage the Central Engine</p>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Exam Name</label>
-            <input 
-              type="text" 
-              placeholder="e.g. SSC CGL Tier 1"
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
-              value={formData.examName}
-              onChange={e => setFormData({...formData, examName: e.target.value})}
-            />
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Year</label>
-              <input 
-                type="number" 
-                placeholder="2024"
-                required
-                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
-                value={formData.year}
-                onChange={e => setFormData({...formData, year: e.target.value})}
-              />
-            </div>
-            <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Shift</label>
-              <select 
-                required
-                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
-                value={formData.shift}
-                onChange={e => setFormData({...formData, shift: e.target.value})}
-              >
-                <option value="">Select...</option>
-                <option value="Morning">Morning</option>
-                <option value="Afternoon">Afternoon</option>
-                <option value="Evening">Evening</option>
+        {/* Tabs */}
+        <div style={{ display: 'flex', borderBottom: '2px solid var(--border-color)', marginBottom: '32px' }}>
+          <button 
+            onClick={() => { setActiveTab('paper'); setMessage(''); }}
+            style={{ flex: 1, padding: '16px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700, borderBottom: activeTab === 'paper' ? '4px solid var(--brand-saffron)' : '4px solid transparent', color: activeTab === 'paper' ? 'var(--text-primary)' : 'var(--text-secondary)' }}
+          >Upload Past Paper</button>
+          <button 
+            onClick={() => { setActiveTab('job'); setMessage(''); }}
+            style={{ flex: 1, padding: '16px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700, borderBottom: activeTab === 'job' ? '4px solid var(--brand-saffron)' : '4px solid transparent', color: activeTab === 'job' ? 'var(--text-primary)' : 'var(--text-secondary)' }}
+          >Broadcast Job Alert</button>
+        </div>
+        
+        {message && <div style={{ padding: '16px', marginBottom: '24px', borderRadius: '8px', background: message.startsWith('Error') ? '#ffdddd' : '#ddffdd', color: '#333', textAlign: 'center', fontWeight: 600 }}>{message}</div>}
+
+        {activeTab === 'paper' ? (
+          <form onSubmit={handlePaperSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <input type="text" placeholder="Exam Name (e.g. SSC CGL)" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={paperForm.examName} onChange={e => setPaperForm({...paperForm, examName: e.target.value})} />
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <input type="number" placeholder="Year" required style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={paperForm.year} onChange={e => setPaperForm({...paperForm, year: e.target.value})} />
+              <select required style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={paperForm.shift} onChange={e => setPaperForm({...paperForm, shift: e.target.value})}>
+                <option value="">Select Shift...</option><option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Evening">Evening</option>
               </select>
             </div>
-          </div>
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Paper Type</label>
-            <select 
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
-              value={formData.paperType}
-              onChange={e => setFormData({...formData, paperType: e.target.value})}
-            >
-              <option value="Previous">Previous Year Paper</option>
-              <option value="Predicted">Predicted Practice Paper</option>
+            <select style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={paperForm.paperType} onChange={e => setPaperForm({...paperForm, paperType: e.target.value})}>
+              <option value="Previous">Previous Year Paper</option><option value="Predicted">Predicted Practice Paper</option>
             </select>
-          </div>
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Document URL (PDF / Drive Link)</label>
-            <input 
-              type="url" 
-              placeholder="https://drive.google.com/..."
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
-              value={formData.documentUrl}
-              onChange={e => setFormData({...formData, documentUrl: e.target.value})}
-            />
-          </div>
-
-          <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginTop: '16px' }}>
-            {loading ? 'Processing...' : 'Upload to Central Database'}
-          </button>
-        </form>
+            <input type="url" placeholder="Document URL (PDF/Drive)" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={paperForm.documentUrl} onChange={e => setPaperForm({...paperForm, documentUrl: e.target.value})} />
+            <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Processing...' : 'Upload Paper'}</button>
+          </form>
+        ) : (
+          <form onSubmit={handleJobSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <input type="text" placeholder="Job Title (e.g. Probationary Officer)" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={jobForm.title} onChange={e => setJobForm({...jobForm, title: e.target.value})} />
+            <input type="text" placeholder="Department (e.g. SBI, UPSC)" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={jobForm.department} onChange={e => setJobForm({...jobForm, department: e.target.value})} />
+            <select required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={jobForm.requiredEducation} onChange={e => setJobForm({...jobForm, requiredEducation: e.target.value})}>
+              <option value="">Required Minimum Education...</option>
+              <option value="10th">10th Pass</option><option value="12th">12th Pass</option><option value="Graduate">Graduate</option><option value="Post-Graduate">Post-Graduate</option>
+            </select>
+            <input type="date" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={jobForm.deadline} onChange={e => setJobForm({...jobForm, deadline: e.target.value})} />
+            <input type="url" placeholder="Application URL" required style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)' }} value={jobForm.applyUrl} onChange={e => setJobForm({...jobForm, applyUrl: e.target.value})} />
+            <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? 'Processing...' : 'Broadcast Job Alert'}</button>
+          </form>
+        )}
       </div>
     </div>
   );
