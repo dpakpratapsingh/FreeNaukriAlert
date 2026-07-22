@@ -36,3 +36,14 @@ model Question {
   correctOption String
   createdAt     DateTime @default(now())
 }
+
+model PastPaper {
+  id           String   @id @default(uuid())
+  examName     String
+  year         Int
+  shift        String
+  paperType    String   // 'Previous' or 'Predicted'
+  documentUrl  String   // Mock URL or real file link
+  uploadedBy   String   // Name or ID of Contributor
+  createdAt    DateTime @default(now())
+}

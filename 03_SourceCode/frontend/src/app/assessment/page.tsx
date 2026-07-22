@@ -60,7 +60,7 @@ export default function Assessment() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/assessment/submit', {
+      const res = await fetch('http://localhost:5033/api/assessment/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ studentEmail: email, answers })

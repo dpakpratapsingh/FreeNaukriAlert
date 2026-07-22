@@ -25,8 +25,9 @@ export default function RootLayout({ children }) {
               FreeNaukriAlert
             </a>
             <div style={{ display: 'flex', gap: '24px', fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>
-              <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Assessments</a>
-              <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Past Papers</a>
+              <a href="/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>Assessments</a>
+              <a href="/papers" style={{ color: 'inherit', textDecoration: 'none' }}>Past Papers</a>
+              <a href="/admin" style={{ color: 'var(--brand-green)', textDecoration: 'none' }}>Upload (Admin)</a>
               <a href="/register" style={{ color: 'var(--accent-color)', textDecoration: 'none' }}>Login / Register</a>
             </div>
           </div>

@@ -16,9 +16,9 @@ export default function Home() {
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
             <a href="/register" className="btn btn-primary" style={{ textDecoration: 'none' }}>Begin 100-Question Check</a>
-            <button className="btn" style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>
+            <a href="/papers" className="btn" style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', textDecoration: 'none' }}>
               Explore Past Papers
-            </button>
+            </a>
           </div>
         </div>
 

@@ -14,9 +14,16 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+import adminRoutes from './routes/admin';
+import papersRoutes from './routes/papers';
+
+// ... (middlewares)
+
 // Enterprise Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/assessment', assessmentRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/papers', papersRoutes);
 
 // Health Check
 app.get('/', (req, res) => {

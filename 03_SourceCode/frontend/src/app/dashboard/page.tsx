@@ -10,7 +10,7 @@ export default function Dashboard() {
   
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/api/auth/profile/${email}`)
+      fetch(`http://localhost:5033/api/auth/profile/${email}`)
         .then(res => res.json())
         .then(data => setProfile(data))
         .catch(console.error);
