@@ -16,9 +16,12 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 
     // Check if student exists
-    let student = await prisma.student.findUnique({ where: { email } });
+    const studentExists = await prisma.student.findUnique({ where: { email } });
     
-    if (!student) {
+    let student;
+    if (studentExists) {
+      return res.status(400).json({ error: 'Email is already registered. Please Login instead.' });
+    } else {
       student = await prisma.student.create({
         data: { name, email, education, targetJob }
       });
@@ -26,8 +29,33 @@ router.post('/register', async (req: Request, res: Response) => {
 
     // Generate token
     const token = jwt.sign({ studentId: student.id, email: student.email }, JWT_SECRET, { expiresIn: '7d' });
+    const isNew = !studentExists;
 
-    return res.status(200).json({ student, token, message: 'Onboarding complete.' });
+    return res.status(200).json({ student, token, isNew, message: 'Registration complete.' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Engine Failure' });
+  }
+});
+
+// Login an existing Student
+router.post('/login', async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required to login.' });
+    }
+
+    const student = await prisma.student.findUnique({ where: { email } });
+    
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found. Please Sign Up first.' });
+    }
+
+    const token = jwt.sign({ studentId: student.id, email: student.email }, JWT_SECRET, { expiresIn: '7d' });
+
+    return res.status(200).json({ student, token, message: 'Login successful.' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal Engine Failure' });
